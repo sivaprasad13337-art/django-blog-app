@@ -1,0 +1,102 @@
+<!-- <!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body> -->
+{% extends 'layouts/base.html' %} {% block body%} {% load widget_tweaks %}
+
+<style>
+  .register-form {
+    /* background-color: aqua; */
+    width: 40%;
+  }
+
+  .register-form label {
+    display: block;
+    margin-bottom: 0.8rem;
+    margin-top: 1rem;
+    font-weight: bold;
+  }
+
+  .register-form input {
+    /* background-color: aqua; */
+    display: block;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: 1px rgb(87, 84, 84) solid;
+  }
+
+  .register-form button {
+    background-color: rgb(0, 0, 0);
+    margin-top: 1rem;
+    /* position: absolute; */
+    /* right: 0; */
+    padding: 0.8rem 5rem;
+    color: aliceblue;
+    font-weight: 600;
+    border-radius: 10px;
+  }
+
+  .register-form p {
+    margin-top: 2rem;
+  }
+
+  .register-form a:hover {
+    color: rgb(82, 84, 84);
+  }
+</style>
+<form action="" method="post" class="mx-auto register-form">
+  {% csrf_token %}
+
+  <div class="text-center">
+    <h2 class="text-red-500 font-bold">{{error}}</h2>
+  </div>
+  <br />
+
+  <div>
+    <label for="">First Name</label>
+    {{form.first_name}}
+  </div>
+
+  <div>
+    <label for="">Last Name</label>
+    {{form.last_name}}
+  </div>
+
+  <div>
+    <label for="">Username</label>
+    {{form.username}}
+  </div>
+
+  <div>
+    <label for="">Email</label>
+    {{form.email}}
+  </div>
+
+  <div>
+    <label for="">Password</label>
+    {{form.password}}
+  </div>
+
+  <div>
+    <button
+      type="submit"
+      class="rounded-3xl bg-blue-500 py-2 px-2 w-full text-white font-bold mx-auto block"
+    >
+      Register
+    </button>
+
+    <div class="text-center my-2">
+      Already have an account?
+      <a href="{% url 'Login-User' %}" class="font-bold"> Login </a>
+    </div>
+  </div>
+</form>
+
+{% endblock %}
+<!-- </body>
+</html> -->

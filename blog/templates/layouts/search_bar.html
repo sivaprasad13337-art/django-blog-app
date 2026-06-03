@@ -1,0 +1,95 @@
+<style>
+  .search-bar {
+    background-color: rgb(247, 247, 247);
+    padding: 1rem 2rem;
+    margin: 1rem auto;
+    max-width: 60rem;
+  }
+
+  .search-options {
+    background-color: rgb(208, 209, 207);
+    padding: 0.5rem 2rem;
+    border-radius: 25px;
+    font-weight: 600;
+  }
+
+  .search-options:hover {
+    background-color: rgb(105, 105, 105);
+    color: #ffffff;
+  }
+
+  .active-search {
+    background-color: rgb(105, 105, 105);
+    color: #ffffff;
+  }
+
+  .search-bar input {
+    width: 100%;
+    padding: 0.5rem 2rem;
+    border-radius: 25px;
+    border: black solid 1px;
+  }
+
+  .search-bar input::placeholder {
+    color: black;
+    font-size: 0.9rem;
+  }
+</style>
+
+<form action="{% url 'Search' %}" method="post" class="search-bar">
+  {% csrf_token %}
+
+  <div style="margin-bottom: 1rem">
+    <button
+      type="button"
+      class="search-options"
+      id="User"
+      onclick="searchOptions('User')"
+    >
+      <i class="fa-regular fa-user"></i>
+      User
+    </button>
+
+    <button
+      type="button"
+      class="search-options"
+      id="Category"
+      onclick="searchOptions('Category')"
+    >
+      <i class="fa-solid fa-sliders"></i>
+      Category
+    </button>
+
+    <button
+      type="button"
+      class="search-options"
+      id="Post"
+      onclick="searchOptions('Post')"
+    >
+      <i class="fa-solid fa-blog"></i>
+      Post
+    </button>
+  </div>
+
+  <div>
+    <input type="text" name="option" id="search-option" value="Normal" hidden />
+
+    <div class="relative">
+      <input
+        id="search-bar"
+        type="text"
+        name="query"
+        placeholder="Search..."
+        required
+      />
+
+      <button
+        type="submit"
+        class="absolute w-[2.5rem] h-[2.5rem] rounded-full"
+        style="top: 1px; right: 0; background-color: rgb(195, 195, 195)"
+      >
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+    </div>
+  </div>
+</form>

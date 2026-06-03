@@ -1,0 +1,48 @@
+{% extends 'layouts/base.html' %} {% block body %}
+
+<section>
+  <div class="bg-gray-400 relative" style="height: 50vh; width: 100%">
+    <img
+      src="{{category.image.url}}"
+      alt=""
+      class="w-full h-full object-cover"
+    />
+
+    <div
+      class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/70"
+    >
+      <!-- <h1
+        class="font-[Anton] w-full absolute text-center"
+        style="
+          font-size: 6rem;
+          line-height: 6rem;
+          font-weight: 900;
+          color: whitesmoke;
+          background-clip: text;
+          background-size: cover;
+          background-position: center;
+          bottom: 40%;
+        "
+      >
+        {{category.name}}
+      </h1> -->
+
+      <p
+        class="text-white font-semibold absolute w-full text-center"
+        style="bottom: 1rem; font-size: 1.5rem; line-height: 3rem"
+      >
+        {{category.quote}}
+      </p>
+    </div>
+  </div>
+</section>
+<h1
+  class="font-[Anton] text-center"
+  style=" background-image: 
+      linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+      url('{{category.image.url}}'); font-size: 6rem; line-height: 6rem; font-weight:900; color: transparent; background-clip: text; background-size: cover; background-position: center;"
+>
+  {{category.name}}
+</h1>
+<section>{% include 'layouts/blogs_cards.html' %}</section>
+{% endblock %}

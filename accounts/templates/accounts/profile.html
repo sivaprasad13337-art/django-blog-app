@@ -1,0 +1,98 @@
+{% extends 'layouts/base.html' %} {% block body %}
+
+<div class="w-full">
+  <!-- <h1>profile</h1>
+  {{profile.user.email}}
+  <img src="{{profile.profileImage.url}}" alt="profileImage" /> -->
+
+  <section class="max-w-[50rem] mt-14 mb-6 mx-auto">
+    <div class="flex w-full bg-gray-80" style="gap: 3rem">
+      <div
+        class="w-[13rem] h-[13rem] rounded-full bg-gray-800"
+        style="width: 13rem; height: 13rem"
+      >
+        <img
+          src="{{profile.profileImage.url}}"
+          alt=""
+          class="w-full rounded-full"
+          style="height: 100%; object-fit: cover"
+        />
+      </div>
+
+      <div class="mt-6">
+        <h2 class="font-bold">{{profile.user}}</h2>
+        <p>{{profile.user.first_name}} {{profile.user.last_name}}</p>
+
+        <div class="flex" style="gap: 0.8rem">
+          <p><span class="font-semibold">{{profile.posts}}</span> Posts</p>
+          <p>
+            <span class="font-semibold">{{profile.followers}}</span> Followers
+          </p>
+          <p>
+            <span class="font-semibold">{{profile.following}}</span> Following
+          </p>
+        </div>
+
+        <p>{{profile.bio}}</p>
+      </div>
+    </div>
+
+    {% if request.user.is_authenticated and request.user == profile.user %}
+    <div class="flex w-full justify-between gap-2 my-6">
+      <a
+        href="{% url 'Set-Profile' %}"
+        class="block p-4 bg-gray-300 rounded-2xl text-center font-semibold"
+        style="width: 50%"
+        >Edit Profile</a
+      >
+
+      <a
+        href="#"
+        class="block p-4 bg-gray-300 rounded-2xl text-center font-semibold"
+        style="width: 50%"
+        >Settings</a
+      >
+    </div>
+
+    {% endif %}
+
+    <i></i>
+
+    {% if request.user.is_authenticated and request.user.id is not profile.user.id %}
+    <div class="flex w-full justify-between gap-2 my-6">
+      {% if request.user in followers %}
+      <a
+        href="{% url 'Follow-User' profile.user.id %}"
+        class="block p-4 rounded-2xl text-center text-white font-semibold"
+        style="width: 50%; background-color: rgb(47, 134, 255);"
+        >Unfollow</a
+      >
+      {% else %}
+
+      <a
+        href="{% url 'Follow-User' profile.user.id %}"
+        class="block p-4 bg-gray-300 rounded-2xl text-center font-semibold"
+        style="width: 50%"
+        >Follow</a
+      >
+
+      {% endif %}
+
+      <a
+        href="#"
+        class="block p-4 bg-gray-300 rounded-2xl text-center font-semibold"
+        style="width: 50%"
+        >Message</a
+      >
+    </div>
+
+    {% endif %}
+  </section>
+
+  <!--  -->
+
+  <section class="mx-auto" style="width: 90%">
+    {% include 'blog/user_posts.html' %}
+  </section>
+</div>
+{% endblock %}

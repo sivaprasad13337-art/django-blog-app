@@ -1,0 +1,47 @@
+{% extends 'layouts/base.html' %} {% block title %} Home {%endblock title %} {% block home %}
+<style>
+  .home {
+    min-height: 82vh;
+  }
+
+  .carousel {
+    width: 50%;
+  }
+</style>
+<div class="home">
+  <section
+    class="w-full flex"
+    style="
+      margin: 2rem 0;
+      background-color: rgb(247, 247, 247);
+      gap: 2rem;
+      padding: 1rem;
+      border-radius: 2rem;
+    "
+  >
+    <div>
+      <h1
+        style="
+          font-size: 3.5rem;
+          font-weight: bold;
+          width: 70%;
+          line-height: 3.5rem;
+          margin-left: 3rem;
+        "
+      >
+        Discover Our Rich contents
+      </h1>
+      <p style="width: 70%; margin: 1rem 0; margin-left: 3rem">
+        Explore work from the most talented and accomplished bloggers ready to
+        take a new Journey through various categories!
+      </p>
+
+      {% include 'layouts/search_bar.html' %}
+    </div>
+    <div class="carousel">{% include 'layouts/carousel.html' %}</div>
+  </section>
+
+  <section style="margin: 3rem auto;">{% include 'layouts/blogs_cards.html' %}</section>
+</div>
+
+{% endblock home %}

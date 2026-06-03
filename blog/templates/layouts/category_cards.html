@@ -1,0 +1,69 @@
+<style>
+  .content {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .main:hover {
+    width: 105%;
+    height: 14.5rem !important;
+    transform: translateY(0);
+    transition: all 0.25s ease-in-out;
+  }
+</style>
+{% for cat in categories %}
+
+<section class="w-[20rem] h-[19rem] my-9">
+  <a
+    href="{% url 'Get-Category' cat.id %}"
+    class="block w-full h-[14rem] relative overflow-hidden main rounded-3xl"
+  >
+    <img
+      src="{{cat.image.url}}"
+      alt=""
+      class="w-full h-full rounded-3xl object-cover"
+    />
+
+    <div
+      class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/70 content"
+    ></div>
+
+    <!-- contect -->
+    <div
+      class="absolute bottom-0 p-4 text-white content flex justify-between w-full"
+    >
+      <p class="font-semibold">{{cat.short_qoute|truncatechars:30}}</p>
+    </div>
+  </a>
+
+  <div class="flex justify-between pl-1 pr-4">
+    <div class="flex mt-2">
+      <a
+        href="{% url 'Get-Category' cat.id %}"
+        class="ml-2 mt-1 text-sm font-semibold"
+      >
+        {{cat.name}}
+      </a>
+    </div>
+
+    <div class="flex gap-2 mt-2">
+      <p>
+        <button class="hover:text-pink-700 text-gray-500 text-xs">
+          <i class="fa-regular fa-heart"></i>
+        </button>
+
+        <span class="text-xs font-semibold">{{cat.likes}}</span>
+      </p>
+
+      <p>
+        <button class="hover:text-sky-600 text-gray-500 text-xs">
+          <i class="fa-regular fa-eye"></i>
+        </button>
+
+        <span class="text-xs font-semibold">{{cat.views}}</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+{% endfor %}

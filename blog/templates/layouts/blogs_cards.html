@@ -1,0 +1,118 @@
+<section class="w-full flex gap-20 flex-wrap">
+  <style>
+    .content {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.4s ease;
+    }
+
+    .main:hover .content {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+
+  {% for post in posts %}
+  <div class="w-[20rem] h-[19rem]">
+    <a
+      href="{% url 'GET-BLOG' post.slug %}"
+      class="block w-full h-[14rem] relative overflow-hidden main rounded-3xl"
+    >
+      <img
+        src="{{post.image.url}}"
+        alt=""
+        class="w-full h-full rounded-3xl object-cover"
+      />
+
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/70 content"
+      ></div>
+
+      <!-- contect -->
+      <div
+        class="absolute bottom-0 p-4 text-white content flex justify-between w-full"
+      >
+        <p class="font-semibold">{{post.title|truncatechars:30}}</p>
+
+        <div class="-mt-1 w-[30%]">
+          <button
+            class="w-[2rem] h-[2rem] bg-gray-200 rounded-full text-black hover:text-pink-700"
+          >
+          
+            {% if post in liked %}
+            <i class="fa-solid fa-heart" style="color: rgb(254, 65, 97);"></i>
+            {% else %}
+            <i class="fa-regular fa-heart"></i>
+            {% endif %}
+          </button>
+
+          <button
+            class="w-[2rem] h-[2rem] bg-gray-200 rounded-full text-black hover:text-gray-500 ml-1"
+          >
+          
+            {% if post in saved %}
+            <i class="fa-solid fa-bookmark" style="color: rgb(109, 105, 106);"></i>
+            {% else %}
+            <i class="fa-regular fa-bookmark"></i>
+            {% endif %}
+
+          </button>
+        </div>
+      </div>
+    </a>
+
+    <div class="flex justify-between pl-1 pr-4">
+      <div class="flex mt-2">
+        <img
+          src="{{post.author.profile.profileImage.url}}"
+          alt=""
+          class="w-[1.7rem] h-[1.7rem] rounded-full object-cover"
+        />
+
+        <a
+          href="{% url 'Get-Profile' post.author.username %}"
+          class="ml-2 mt-1 text-sm font-semibold"
+        >
+          {{post.author.first_name}} {{post.author.last_name}}
+        </a>
+      </div>
+
+      <div class="flex gap-2 mt-2">
+        <p>
+          <a
+            href="{% url 'Like-Post' post.id %}"
+            class="hover:text-pink-700 text-gray-500 text-xs"
+          >
+            {% if post in liked %}
+            <i class="fa-solid fa-heart" style="color: rgb(254, 65, 97);"></i>
+            {% else %}
+            <i class="fa-regular fa-heart"></i>
+            {% endif %}
+          </a>
+
+          <span class="text-xs font-semibold">{{post.likes}}</span>
+        </p>
+
+        <p>
+          <button class="hover:text-sky-600 text-gray-500 text-xs">
+            <i class="fa-regular fa-eye"></i>
+          </button>
+
+          <span class="text-xs font-semibold">{{post.views}}</span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  {% if post.id in liked_posts.post.id %}
+  <h1>hi</h1>
+  {% else %}
+  {% for i in liked_posts %}
+  <h1>{{i.post.id}}</h1>
+  {% endfor %}
+  {% endif %}
+
+  {% endfor %}
+
+  
+</section>

@@ -1,0 +1,62 @@
+{% extends 'layouts/base.html' %} {% block body %}
+
+<style>
+  .user-cards {
+    width: 13rem;
+    padding: 0.5rem 0.5rem;
+    border-radius: 5px;
+    transition: 0.25s all ease-in-out;
+  }
+
+  .user-cards:hover {
+    background-color: rgb(233, 231, 231);
+    color: rgb(63, 63, 63);
+  }
+</style>
+
+<section style="width: 80%; margin: 1rem auto">
+  <section>{% include 'layouts/search_bar.html' %}</section>
+
+  <!-- Render Posts  -->
+  {% if posts %}
+  <section>{% include 'layouts/blogs_cards.html' %}</section>
+  {% endif %} {% if users %}
+
+  <!-- Render Users -->
+  <section class="flex" style="gap: 2rem; margin-left: 6rem">
+    {% for user in users %}
+
+    <a
+      href="{% url 'Get-Profile' user.username %}"
+      class="flex gap-2 user-cards"
+    >
+      <img
+        src="{{user.profile.profileImage.url}}"
+        alt=""
+        class="w-[2rem] h-[2rem] rounded-full"
+      />
+      <div>
+        <p class="" style="line-height: 0.9rem">
+          {{user.first_name}} {{user.last_name}}
+        </p>
+        <span class="text-xs">{{user.username}}</span>
+      </div>
+    </a>
+
+    {% endfor %}
+  </section>
+
+  {% endif %}
+
+  <!-- Render Categories -->
+  {% if categories %}
+  <section
+  class="flex flex-wrap"
+  style="grid-auto-flow: 1rem; justify-content: space-around"
+>
+  {% include 'layouts/category_cards.html' %} 
+  {% endif %}
+  </section>
+</section>
+
+{% endblock %}

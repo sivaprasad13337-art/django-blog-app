@@ -1,0 +1,206 @@
+{% extends 'layouts/base.html' %} {% block body %}{%csrf_token %}
+
+<style>
+  .blog {
+    width: 63%;
+    transform: translateY(20px);
+    transform: translateZ(1opx);
+    transition: all 1s ease-in-out;
+  }
+
+
+  #blog {
+    transition: all 1s ease-in-out;
+  }
+
+  .blog-content {
+    margin: 5rem auto;
+    width: 60%;
+  }
+
+  .blog-content h1 {
+    font-size: 2rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .blog-content h2 {
+    font-size: 1.6rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .blog-content p {
+    margin-bottom: 1rem !important;
+    line-height: 1.6 !important;
+    font-size: 1.3rem;
+    color: rgb(78, 76, 76);
+  }
+
+  .blog-content img {
+    margin: 1rem 0 !important;
+    border-radius: 8px !important;
+    max-width: 100% !important;
+    max-height: 400px;
+    object-fit: cover;
+  }
+
+  .blog-heading{
+    display: block;
+    margin: 1rem auto;
+    width: 60%;
+  }
+
+  .blog-poster{
+    position: absolute;
+    max-width: 42rem;
+    height: 27rem !important; 
+    top: 10vh; 
+    left: 2%
+  }
+
+  .blog-info{
+    background-color: rgb(255, 245, 252);
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 40%;
+    width: 80%;
+  }
+
+  .blog-info-options{
+    width: 70%;
+    margin-left: 20%;
+  }
+</style>
+<section class="flex relative mx-auto" style="margin-top: 2rem">
+  <section id="blog" class="">
+    <!--  -->
+    <section class="flex relative" style="gap: 4rem" id="blog-h-1">
+      <div
+      id="blog-poster-1"
+        class="blog-poster"
+        style="height: 27rem;"
+      >
+        <img
+          src="{{blog.image.url}}"
+          alt=""
+          class="object-cover w-full h-full"
+        />
+      </div>
+
+      <!--  -->
+      <div
+      id="blog-info-1"
+        class="blog-info"
+      >
+        <div class="blog-info-options" id="blog-info-options-1">
+          <h1
+            class="font-bold text-left"
+            style="font-size: 3rem; width: 100%; line-height: 3.8rem"
+          >
+            {{blog.title}}
+          </h1>
+          <p class="mt-2 font-semibold">by <a href="{% url 'Get-Profile' blog.author.username %}">{{blog.author}}</a></p>
+          <p class="mt-1 font-semibold text-gray-400">{{blog.created_at}}</p>
+
+          <div class="flex mt-2 relative" style="gap: 1rem">
+            <a href="{% url 'Like-Post' blog.id %}">
+              <button
+                class="bg-gray-200 rounded-full text-black hover:text-pink-700"
+                style="width: 6rem; height: 2rem"
+              >
+
+              {% if liked_post %}
+                <i class="fa-solid fa-heart" style="color: rgb(254, 65, 97);"></i>
+              {% else %}
+              <i class="fa-regular fa-heart"></i>
+                
+              {% endif %}
+              {{blog.likes}}
+              </button>
+            </a>
+
+            
+            <a href="{% url 'Save-Post' blog.id %}">
+              <button
+                class="bg-gray-200 rounded-full text-black hover:text-gray-500"
+                style="width: 6rem; height: 2rem"
+              >
+                {% if saved_post %}
+                <i class="fa-solid fa-bookmark text-gray-400"></i>
+                Unsave
+                {% else %}
+                <i class="fa-regular fa-bookmark"></i>
+                Save
+                {% endif %}
+              </button>
+            </a>
+
+            <button
+                onclick="toggleComments()"
+                id="cmnt-toggle"
+                class="bg-gray-200 rounded-full text-black hover:text-gray-500"
+                style="width: 8rem; height: 2rem"
+              >
+                <i class="fa-regular fa-comment"></i>
+                comments
+              </button>
+
+            {% if request.user == blog.author and request.user.is_authenticated %}
+            <div class="block">
+              <button
+                class="bg-gray-200 rounded-full text-black hover:text-gray-500"
+                style="width: 3rem; height: 2rem"
+                onclick="blog_options()"
+              >
+                <p class="" style="margin-top: -9px">...</p>
+              </button>
+
+              <!--  -->
+              <div
+                class="bg-gray-200 rounded-3xl absolute hidden"
+                style="width: 8rem; height: 6rem; top: -2rem; right: 7.5rem"
+                id="blog-options"
+              >
+                <a
+                  href="{% url 'Delete-Blog' blog.slug %}"
+                  style="display: block"
+                >
+                  <button
+                    class="w-full text-black hover:text-gray-500"
+                    style="border-bottom: 1px solid black; height: 3rem"
+                    onclick="blog_options()"
+                  >
+                    Delete
+                  </button>
+                </a>
+
+                <a href="{% url 'Set-Post' blog.id %}">
+                  <button
+                  class="w-full text-black hover:text-gray-500"
+                  style="height: 3rem"
+                  onclick="blog_options()"
+                >
+                  Edit
+                </button>
+                </a>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--  -->
+
+    <div class="blog-content">{{blog.content|safe}}</div>
+  </section>
+
+  <section
+    id="cmnt"
+    class="fixed hidden top-[15vh] right-[2%] rounded-3xl py-6 px-4 w-[35%] h-[80vh] bg-slate-50 shadow-xl overflow-y-scroll"
+  >
+    {% include 'comment_section.html' %}
+  </section>
+  {% endblock %}
+</section>

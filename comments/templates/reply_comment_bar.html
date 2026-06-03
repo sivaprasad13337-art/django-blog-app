@@ -1,0 +1,14 @@
+<form
+  method="post"
+  action="{% url 'Add-Comment' blog.id 0 %}"
+  class="absolute bottom-4 w-[95%] flex"
+>
+  {% csrf_token %} {{comment_form.content}}
+
+  <button
+    type="submit"
+    class="mt-1 block ml-2 w-[2.5rem] h-[2.5rem] hover:border-gray-400 hover:border-2 rounded-full"
+  >
+    <i class="fa-regular fa-paper-plane -ml-1 text-gray-400"></i>
+  </button>
+</form>
